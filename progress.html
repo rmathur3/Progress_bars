@@ -1,0 +1,63 @@
+<h1>Ractive test</h1>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="progress.css">
+</head>
+<body>
+	<div id='container'></div>
+	  <!-- LOAD THE JAVASCRIPT LIBRARIES WE NEED -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ractive/0.7.3/ractive.min.js"></script>
+	<p>check1</p>
+	<!-- LOAD OUR SCRIPT -->
+	<script src="progress.js"></script>
+	<p>check1 1</p>
+</body>
+	<p>check1 2</p>
+	<script id="template" type='text/ractive'>
+	<p>check2</p>
+		<h3>Progress Report</h3>
+				
+
+		{{#each progressbars}}
+			<h1><b>Progress bar<b></h1>
+			{{#if value < 100 }}
+					 {{#if value < 0 }}    
+						<div class=" progress-bar-striped "  style="width: {{value/2}}%">
+							<span class="progress-label">0%</span>
+						</div>
+					{{else}}       
+						<div class=" progress-bar-fill progress-bar-striped "  style="width: {{value/2}}%">
+							<span class="progress-label">{{value}}%</span>
+						</div>
+					{{/if}}
+			{{/if}}
+
+			{{#if value == 100}}
+				<div class="progress-bar-fill-green progress-bar-striped " style="width: 50%">
+					<span class="progress-label">{{value}}%</span>
+				</div>
+			{{/if}}
+
+			{{#if value>100}}
+				<div class="progress-bar-fill-red progress-bar-striped " style="width: 50%">
+					<span class="progress-label">{{value}}%</span>
+				</div>
+			{{/if}}
+		{{/each}}
+		 <div class="span">&nbsp;
+		</div>
+		<div class="span">
+			<select value='{{selectedProgress}}'>
+				<option selected disabled>choose progress sheet</option>
+				{{#each progressbars :index}}
+					<option value='{{index}}'>{{name}}</option>
+				{{/each}}
+			</select> &nbsp;&nbsp;
+			
+		{{#each amounts}}
+		   
+			<button class="myButton" disabled='{{selectedProgress == null}}' on-click='adjust(this)'>{{this > 0 ? '+' : ''}}{{this}}</button>&nbsp;
+		{{/each}}
+			</div>
+	</script>
